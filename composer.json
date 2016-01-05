@@ -1,0 +1,43 @@
+{
+    "name": "bluebaytravel/feefo",
+    "description": "Laravel 5 Feefo API Wrapper",
+    "keywords": ["feefo", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Brooks",
+            "email": "james@bluebaytravel.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "guzzlehttp/guzzle": "^5.3|^6.0",
+        "illuminate/contracts": "5.1.*|5.2.*",
+        "illuminate/support": "5.1.*|5.2.*"
+    },
+    "require-dev": {
+        "graham-campbell/testbench": "^3.1",
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "^4.8|^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BlueBayTravel\\Feefo\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BlueBayTravel\\Tests\\Feefo\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
