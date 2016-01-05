@@ -65,7 +65,7 @@ class Feefo
         $params['password'] = $this->config->get('feefo.password');
 
         try {
-            $body = $this->client->post($this->getRequestUrl($params));
+            $body = $this->client->get($this->getRequestUrl($params));
         } catch (Exception $e) {
             // Ignore the exception.
         }
