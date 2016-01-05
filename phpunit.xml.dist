@@ -23,4 +23,8 @@
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+    <php>
+        <env name="FEEFO_LOGON" value="your_logon"/>
+        <env name="FEEFO_PASSWORD" value="your_password"/>
+    </php>
 </phpunit>
