@@ -41,7 +41,7 @@ class FeefoItem
      */
     public function __get($key)
     {
-        $safeKey = strtoupper($key);
+        $safeKey = str_replace('_', '', strtoupper($key));
         if (isset($data[$safeKey])) {
             return $data[$safeKey];
         }
