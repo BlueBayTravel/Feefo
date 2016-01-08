@@ -1,5 +1,6 @@
 # Feefo
 
+[![Build Status](https://img.shields.io/travis/BlueBayTravel/Feefo.svg?style=flat-square)](https://travis-ci.org/BlueBayTravel/Feefo)
 [![StyleCI](https://styleci.io/repos/49071201/shield)](https://styleci.io/repos/49071201)
 
 Laravel 5 wrapper for the [Feefo](https://www.feefo.com/documentation/feefo_integration.pdf#page=37) API.
