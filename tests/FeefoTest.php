@@ -26,4 +26,12 @@ class FeefoTest extends AbstractTestCase
 
         $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback->first());
     }
+
+    public function testFetchWithParams()
+    {
+        $feedback = $this->app->feefo->fetch(['limit' => 9999, 'since' => 'year']);
+
+        $this->assertInstanceOf('Illuminate\Support\Collection', $feedback);
+        $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback->first());
+    }
 }
