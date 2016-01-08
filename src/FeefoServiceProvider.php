@@ -71,7 +71,7 @@ class FeefoServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'fusion',
+            'feefo',
         ];
     }
 }
