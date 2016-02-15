@@ -12,7 +12,6 @@
 namespace BlueBayTravel\Feefo;
 
 use ArrayAccess;
-use BlueBayTravel\Feefo\Exceptions\UndefinedPropertyException;
 use Countable;
 use Exception;
 use GuzzleHttp\Client;
