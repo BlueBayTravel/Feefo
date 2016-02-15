@@ -12,13 +12,14 @@
 namespace BlueBayTravel\Feefo;
 
 use ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * This is the feefo item.
  *
  * @author James Brooks <james@bluebaytravel.co.uk>
  */
-class FeefoItem implements ArrayAccess
+class FeefoItem implements Arrayable, ArrayAccess
 {
     /**
      * Array of data.
@@ -121,6 +122,16 @@ class FeefoItem implements ArrayAccess
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset) ? $this->data[$offset] : null;
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
     }
 
     /**
