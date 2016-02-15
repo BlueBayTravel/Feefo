@@ -17,6 +17,7 @@ use Countable;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Support\Arrayable;
 use SimpleXMLElement;
 
 /**
@@ -24,7 +25,7 @@ use SimpleXMLElement;
  *
  * @author James Brooks <james@bluebaytravel.co.uk>
  */
-class Feefo implements ArrayAccess, Countable
+class Feefo implements Arrayable, ArrayAccess, Countable
 {
     /**
      * The guzzle client.
@@ -174,6 +175,16 @@ class Feefo implements ArrayAccess, Countable
     public function count()
     {
         return count($this->data);
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
     }
 
     /**
