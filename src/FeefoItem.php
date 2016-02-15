@@ -56,7 +56,7 @@ class FeefoItem
      */
     public function __isset($name)
     {
-        $safeKey = $this->safe($safeKey);
+        $safeKey = $this->safe($name);
 
         return isset($this->data[$safeKey]);
     }
