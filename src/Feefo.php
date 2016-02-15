@@ -83,7 +83,6 @@ class Feefo
     protected function parse($data)
     {
         $xml = new SimpleXMLElement($data);
-
         $collection = new Collection();
 
         foreach ((array) $xml as $item) {

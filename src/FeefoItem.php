@@ -35,15 +35,41 @@ class FeefoItem
     /**
      * Magic method to get back from Feefo item.
      *
-     * @param string $key
+     * @param string $name
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get($name)
     {
-        $safeKey = str_replace('_', '', strtoupper($key));
-        if (isset($data[$safeKey])) {
-            return $data[$safeKey];
+        $safeKey = $this->safe($name);
+        if (isset($this->data[$safeKey])) {
+            return $this->data[$safeKey];
         }
+    }
+
+    /**
+     * Magic method to check if an item is set.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        $safeKey = $this->safe($safeKey);
+
+        return isset($this->data[$safeKey]);
+    }
+
+    /**
+     * Make the key name safe.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    protected function safe($key)
+    {
+        return str_replace('_', '', strtoupper($key));
     }
 }
