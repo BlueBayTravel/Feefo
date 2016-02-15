@@ -9,24 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace BlueBayTravel\Feefo\Facades;
+namespace BlueBayTravel\Feefo;
 
-use Illuminate\Support\Facades\Facade;
+use Exception;
 
 /**
- * This is the feefo facade.
+ * This is the feefo exception interface.
  *
  * @author James Brooks <james@bluebaytravel.co.uk>
  */
-class Feefo extends Facade
+class UndefinedPropertyException extends Exception implements FeefoExceptionInterface
 {
-    /**
-     * Create Facade Accessor.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return 'feefo';
-    }
+    //
 }

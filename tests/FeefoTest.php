@@ -13,25 +13,25 @@ namespace BlueBayTravel\Tests\Feefo;
 
 class FeefoTest extends AbstractTestCase
 {
-    public function testFetchReturnsCollection()
+    public function testFetchReturnsFeefoObject()
     {
         $feedback = $this->app->feefo->fetch();
 
-        $this->assertInstanceOf('Illuminate\Support\Collection', $feedback);
+        $this->assertInstanceOf('BlueBayTravel\Feefo\Feefo', $feedback);
     }
 
     public function testFetchItemsAreFeefoItem()
     {
         $feedback = $this->app->feefo->fetch();
 
-        $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback->first());
+        $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback[0]);
     }
 
     public function testFetchWithParams()
     {
         $feedback = $this->app->feefo->fetch(['limit' => 9999, 'since' => 'year']);
 
-        $this->assertInstanceOf('Illuminate\Support\Collection', $feedback);
-        $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback->first());
+        $this->assertInstanceOf('BlueBayTravel\Feefo\Feefo', $feedback);
+        $this->assertInstanceOf('BlueBayTravel\Feefo\FeefoItem', $feedback[0]);
     }
 }

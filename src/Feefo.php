@@ -11,13 +11,20 @@
 
 namespace BlueBayTravel\Feefo;
 
+use ArrayAccess;
+use BlueBayTravel\Feefo\Exceptions\UndefinedPropertyException;
+use Countable;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Collection;
 use SimpleXMLElement;
 
-class Feefo
+/**
+ * This is the feefo class.
+ *
+ * @author James Brooks <james@bluebaytravel.co.uk>
+ */
+class Feefo implements ArrayAccess, Countable
 {
     /**
      * The guzzle client.
@@ -32,6 +39,13 @@ class Feefo
      * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
+
+    /**
+     * The review items.
+     *
+     * @var array
+     */
+    protected $data;
 
     /**
      * Create a new feefo instance.
@@ -52,7 +66,7 @@ class Feefo
      *
      * @param array|null $params
      *
-     * @return \Illuminate\Support\Collection
+     * @return \BlueBayTravel\Feefo\Feefo
      */
     public function fetch($params = null)
     {
@@ -83,14 +97,83 @@ class Feefo
     protected function parse($data)
     {
         $xml = new SimpleXMLElement($data);
-        $collection = new Collection();
 
-        foreach ((array) $xml as $item) {
-            $feefoItem = new FeefoItem((array) $item);
-            $collection->push($feefoItem);
+        foreach ((array) $xml as $items) {
+            if (isset($items->TOTALRESPONSES)) {
+                continue;
+            }
+
+            foreach ($items as $item) {
+                $this->data[] = new FeefoItem((array) $item);
+            }
         }
 
-        return $collection;
+        return $this;
+    }
+
+    /**
+     * Assigns a value to the specified offset.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->data[] = $value;
+        } else {
+            $this->data[$offset] = $value;
+        }
+    }
+
+    /**
+     * Whether or not an offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    /**
+     * Unsets an offset.
+     *
+     * @param mixed $offset
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            unset($this->data[$offset]);
+        }
+    }
+
+    /**
+     * Returns the value at specified offset.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->offsetExists($offset) ? $this->data[$offset] : null;
+    }
+
+    /**
+     * Count the number of items in the dataset.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
     }
 
     /**

@@ -14,6 +14,11 @@ namespace BlueBayTravel\Feefo;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * This is the feefo service provider.
+ *
+ * @author James Brooks <james@bluebaytravel.co.uk>
+ */
 class FeefoServiceProvider extends ServiceProvider
 {
     /**

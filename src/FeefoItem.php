@@ -11,7 +11,14 @@
 
 namespace BlueBayTravel\Feefo;
 
-class FeefoItem
+use ArrayAccess;
+
+/**
+ * This is the feefo item.
+ *
+ * @author James Brooks <james@bluebaytravel.co.uk>
+ */
+class FeefoItem implements ArrayAccess
 {
     /**
      * Array of data.
@@ -41,9 +48,9 @@ class FeefoItem
      */
     public function __get($name)
     {
-        $safeKey = $this->safe($name);
-        if (isset($this->data[$safeKey])) {
-            return $this->data[$safeKey];
+        $name = $this->normalize($name);
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
         }
     }
 
@@ -56,19 +63,74 @@ class FeefoItem
      */
     public function __isset($name)
     {
-        $safeKey = $this->safe($name);
+        $name = $this->normalize($name);
 
-        return isset($this->data[$safeKey]);
+        return isset($this->data[$name]);
     }
 
     /**
-     * Make the key name safe.
+     * Assigns a value to the specified offset.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->data[] = $value;
+        } else {
+            $this->data[$offset] = $value;
+        }
+    }
+
+    /**
+     * Whether or not an offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    /**
+     * Unsets an offset.
+     *
+     * @param mixed $offset
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            unset($this->data[$offset]);
+        }
+    }
+
+    /**
+     * Returns the value at specified offset.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->offsetExists($offset) ? $this->data[$offset] : null;
+    }
+
+    /**
+     * Normalize the given string.
      *
      * @param string $key
      *
      * @return string
      */
-    protected function safe($key)
+    protected function normalize($key)
     {
         return str_replace('_', '', strtoupper($key));
     }
