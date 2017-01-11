@@ -80,11 +80,11 @@ class Feefo implements Arrayable, ArrayAccess, Countable
 
         try {
             $body = $this->client->get($this->getRequestUrl($params));
-        } catch (Exception $e) {
-            // Ignore the exception.
-        }
 
-        return $this->parse((string) $body->getBody());
+            return $this->parse((string) $body->getBody());
+        } catch (Exception $e) {
+            throw $e; // Re-throw the exception
+        }
     }
 
     /**
