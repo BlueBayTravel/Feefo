@@ -12,8 +12,8 @@
     "require": {
         "php": ">=5.5.9",
         "guzzlehttp/guzzle": "^5.3|^6.0",
-        "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*",
-        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*"
+        "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
     },
     "require-dev": {
         "graham-campbell/testbench": "^3.1",
@@ -35,7 +35,15 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "2.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "BlueBayTravel\\Feefo\\FeefoServiceProvider"
+            ],
+            "aliases": {
+                "Feefo": "BlueBayTravel\\Feefo\\Facades\\Feefo"
+            }
         }
     },
     "minimum-stability": "dev",
